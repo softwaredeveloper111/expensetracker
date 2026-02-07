@@ -38,13 +38,17 @@ transactionRouter.post("/",async(req,res)=>{
  * fetch all the expenses
  */
 transactionRouter.get("/",async (req,res)=>{
-   const expenses = await expenseModel.find();
 
+   const user = jwt.verify(req.cookies.JWT_TOKEN , process.env.JWT_SECRET)
+    
+   const expenses = await expenseModel.find({user:user.id})
+   
    res.status(200).json({
     message:"all expenses fetched sucessfully",
     expenses
    })
 })
+
 
 
 /**

@@ -1,8 +1,11 @@
 import React from 'react'
+import Routing from "./utils/Routing";
 
 const App = () => {
   return (
-    <div>App</div>
+    <div>
+      <Routing/>
+    </div>
   )
 }
 

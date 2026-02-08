@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+button{
+  transition: scale 0.4s linear;
+}
+
+button:active{
+  scale:0.7
+}
+
+
+.transactionContainer {
+  overflow: auto;        /* or overflow-y: scroll */
+  scrollbar-width: none; /* Firefox */
+}
+
+.transactionContainer::-webkit-scrollbar {
+  display: none;         /* Chrome, Safari, Edge */
+}

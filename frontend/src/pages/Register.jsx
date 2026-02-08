@@ -1,20 +1,34 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 
-const Regsiter = () => {
+
+const Register = () => {
   
 
-  const {register,reset,handleSubmit,formState:{errors}} =useForm()
+  const {register,reset,handleSubmit,formState:{errors}} =useForm();
+  const navigate = useNavigate()
   
-  function formSubmitEventHandler(data){
-    console.log(data)
+ async function formSubmitEventHandler(data){
+  try {
+    await axios.post("http://localhost:3000/api/auth/register",data,{withCredentials:true});
+    navigate("/",{state:{fromRegister:true}})
     reset()
+    
+  } catch (error) {
+
+    toast.error("🦄 already have an account",{className:"!bg-red-400 !text-white" });
+    console.log(error.message)
+  }
+    
   } 
 
   return (
     <div className='register w-screen min-h-screen bg-zinc-900 px-5 sm:px-10 lg:px-30 py-10'>
+        <ToastContainer/>
          <h1 className='text-2xl text-sky-300 flex items-center gap-2'> <i className="ri-account-circle-line text-3xl sm:text-4xl"></i> Create a new Account</h1>
 
          <form className='form w-[320px] sm:w-100 mt-20 flex flex-col gap-6' onSubmit={handleSubmit(formSubmitEventHandler)}>
@@ -84,4 +98,4 @@ const Regsiter = () => {
   )
 }
 
-export default Regsiter
+export default Register
